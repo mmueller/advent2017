@@ -11,15 +11,11 @@ pub fn solve() {
     println!("CAPTCHA solution 2: {}", solve_captcha(captcha, captcha.len()/2));
 }
 
-fn string_to_digits(string: &str) -> Vec<u8> {
-    string.chars()
-          .map(|c| c.to_string().parse::<u8>().unwrap())
-          .collect()
-}
-
 fn solve_captcha(captcha: &str, offset: usize) -> usize {
     let mut result: usize = 0;
-    let digits = string_to_digits(captcha);
+    let digits: Vec<u32> = captcha.chars()
+                                  .map(|c| c.to_digit(10).unwrap())
+                                  .collect();
     for i in 0..digits.len() {
         if digits[i] == digits[(i+offset)%digits.len()] {
             result += digits[i] as usize;
