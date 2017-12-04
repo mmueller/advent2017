@@ -55,15 +55,6 @@ fn next_pos(pos: (isize, isize), bounds: (isize, isize)) -> (isize, isize) {
 
 // Implement an indexing scheme that allows us to map negative & positive
 // indexes into positions in the range 0..∞.
-fn index_to_pos(index: usize) -> isize {
-    let sindex = index as isize;
-    if sindex % 2 == 1 {
-        -(sindex+1)/2
-    } else {
-        sindex/2
-    }
-}
-
 fn pos_to_index(pos: isize) -> usize {
     let result = if pos < 0 {
                      (-pos*2) - 1
@@ -71,6 +62,17 @@ fn pos_to_index(pos: isize) -> usize {
                      pos * 2
                  };
     result as usize
+}
+
+// I never needed the inverse, but for reference it would look like this:
+#[allow(dead_code)]
+fn index_to_pos(index: usize) -> isize {
+    let sindex = index as isize;
+    if sindex % 2 == 1 {
+        -(sindex+1)/2
+    } else {
+        sindex/2
+    }
 }
 
 fn sum_of_neighbors(matrix: &Vec<Vec<usize>>, pos: (isize, isize)) -> usize {
