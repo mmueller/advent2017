@@ -1,17 +1,13 @@
 use std::fs::File;
-use std::io::Read;
+use std::io::{BufRead,BufReader};
 
 pub fn solve() {
-    let mut f = File::open("input/day5.txt").expect("file not found");
-    let mut contents = String::new();
-    f.read_to_string(&mut contents)
-     .expect("unable to read input file");
-
+    let file = BufReader::new(File::open("input/day5.txt")
+                                   .expect("file not found"));
     let instructions: Vec<isize> =
-        contents.split("\n")
-                .filter(|s| !s.is_empty())
-                .map(|s| s.parse::<isize>().unwrap())
-                .collect();
+        file.lines()
+            .map(|s| s.unwrap().parse::<isize>().unwrap())
+            .collect();
 
     let steps1 = execute(instructions.clone(),
                          |i| i + 1);

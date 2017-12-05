@@ -1,15 +1,14 @@
 use std::fs::File;
-use std::io::Read;
+use std::io::{BufRead, BufReader};
 
 pub fn solve() {
-    let mut f = File::open("input/day2.txt").expect("file not found");          
-    let mut contents = String::new();                                           
-    f.read_to_string(&mut contents)                                             
-     .expect("unable to read input file");
+    let file = BufReader::new(File::open("input/day2.txt")
+                                   .expect("file not found"));
     let mut result : u32 = 0;
     let mut result2 : u32 = 0;
-    for line in contents.split("\n") {
-        let values: Vec<u32> = line.split("\t")
+    for line in file.lines() {
+        let values: Vec<u32> = line.unwrap()
+                                   .split("\t")
                                    .filter(|v| !v.is_empty())
                                    .map(|v| v.parse::<u32>().unwrap())
                                    .collect();

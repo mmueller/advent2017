@@ -1,21 +1,17 @@
 use std::collections::HashSet;
 use std::fs::File;
-use std::io::Read;
+use std::io::{BufRead, BufReader};
 
+// Provides sorted().
 use itertools::Itertools;
 
 pub fn solve() {
-    let mut f = File::open("input/day4.txt").expect("file not found");
-    let mut contents = String::new();
-    f.read_to_string(&mut contents)
-     .expect("unable to read input file");
-
-    let passphrases: Vec<&str> =
-        contents.split("\n")
-                .filter(|passphrase| !passphrase.is_empty())
-                .collect();
-    let num_valid: usize = count_valid(&passphrases,
-                                       |s| String::from(s));
+    let file = BufReader::new(File::open("input/day4.txt")
+                                   .expect("file not found"));
+    let passphrases: Vec<String> = file.lines()
+                                     .map(|s| s.unwrap())
+                                     .collect();
+    let num_valid: usize = count_valid(&passphrases, |s| s.to_string());
     let num_valid_anagram: usize = count_valid(&passphrases,
                                                |s| s.chars()
                                                     .sorted()
@@ -25,7 +21,7 @@ pub fn solve() {
     println!("Valid passphrases (anagram):  {}", num_valid_anagram);
 }
 
-fn count_valid(passphrases: &Vec<&str>, transform: fn(&str)->String) -> usize {
+fn count_valid(passphrases: &Vec<String>, transform: fn(&str)->String) -> usize {
      passphrases.iter()
                 .filter(|passphrase| is_valid(passphrase, transform))
                 .map(|_| 1)
