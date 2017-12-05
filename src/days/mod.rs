@@ -6,6 +6,7 @@ pub mod day1;
 pub mod day2;
 pub mod day3;
 pub mod day4;
+pub mod day5;
 
 // Execute the solution for a particular day (1..25).
 pub fn solve(day: usize) {
@@ -14,6 +15,7 @@ pub fn solve(day: usize) {
         2 => day2::solve(),
         3 => day3::solve(),
         4 => day4::solve(),
+        5 => day5::solve(),
         _ => println!("Unsupported day: {}", day),
     }
 }
