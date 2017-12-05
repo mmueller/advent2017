@@ -5,3 +5,4 @@ authors = ["Mike Mueller <mike@subfocal.net>"]
 
 [dependencies]
 argparse = ""
+itertools = ""

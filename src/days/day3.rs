@@ -54,7 +54,8 @@ fn next_pos(pos: (isize, isize), bounds: (isize, isize)) -> (isize, isize) {
 }
 
 // Implement an indexing scheme that allows us to map negative & positive
-// indexes into positions in the range 0..∞.
+// positions into indexes in the range 0..∞. (Since the data type I want to use
+// (Vec) starts indexing at 0.)
 fn pos_to_index(pos: isize) -> usize {
     let result = if pos < 0 {
                      (-pos*2) - 1

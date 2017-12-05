@@ -1,4 +1,5 @@
 extern crate argparse;
+extern crate itertools;
 
 mod days;
 
