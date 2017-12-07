@@ -1,7 +1,9 @@
 extern crate argparse;
+#[macro_use]
+extern crate failure;
 extern crate itertools;
 
-mod days;
+mod advent;
 
 use argparse::{ArgumentParser, StoreOption};
 
@@ -16,7 +18,12 @@ fn main() {
         parser.parse_args_or_exit();
     }
     match day {
-        Some(ref day) => days::solve(*day),
+        Some(ref day) => {
+            match advent::solve(*day) {
+                Ok(_) => {},
+                Err(e) => println!("error: {}", e)
+            }
+        },
         None => println!("--day is required"),
     }
 }

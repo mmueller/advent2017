@@ -1,3 +1,5 @@
+use advent::AdventSolver;
+use failure::Error;
 use std::collections::hash_map::DefaultHasher;
 use std::collections::HashMap;
 use std::fs::File;
@@ -5,31 +7,36 @@ use std::fmt;
 use std::hash::{Hash, Hasher};
 use std::io::Read;
 
-pub fn solve() {
-    let mut f = File::open("input/day6.txt").expect("file not found");
-    let mut contents = String::new();
-    f.read_to_string(&mut contents)
-     .expect("unable to read input file");
+#[derive(Default)]
+pub struct Solver;
 
-    let init_banks: Vec<usize> = contents.trim()
-                                         .split_whitespace()
-                                         .map(|s| s.parse::<usize>().unwrap())
-                                         .collect();
+impl AdventSolver for Solver {
+    fn solve(&mut self) -> Result<(), Error> {
+        let mut f = File::open("input/day6.txt")?;
+        let mut contents = String::new();
+        f.read_to_string(&mut contents)?;
 
-    let mut seen_configurations: HashMap<u64, usize> = HashMap::new();
-    let mut memory = Memory::new(&init_banks);
-    let mut rebalancings: usize = 0;
-    let mut hash = memory.get_hash();
-    while !seen_configurations.contains_key(&hash) {
-        seen_configurations.insert(hash, rebalancings);
-        memory.rebalance();
-        println!("{}", memory);
-        rebalancings += 1;
-        hash = memory.get_hash();
+        let init_banks: Vec<usize> = contents.trim()
+                                             .split_whitespace()
+                                             .map(|s| s.parse::<usize>())
+                                             .collect::<Result<_,_>>()?;
+
+        let mut seen_configurations: HashMap<u64, usize> = HashMap::new();
+        let mut memory = Memory::new(&init_banks);
+        let mut rebalancings: usize = 0;
+        let mut hash = memory.get_hash();
+        while !seen_configurations.contains_key(&hash) {
+            seen_configurations.insert(hash, rebalancings);
+            memory.rebalance();
+            println!("{}", memory);
+            rebalancings += 1;
+            hash = memory.get_hash();
+        }
+
+        println!("Duplicate configuration after {} rebalancings.", rebalancings);
+        println!("Cycle size was {}.", rebalancings - seen_configurations[&hash]);
+        Ok(())
     }
-
-    println!("Duplicate configuration after {} rebalancings.", rebalancings);
-    println!("Cycle size was {}.", rebalancings - seen_configurations[&hash]);
 }
 
 #[derive(Hash)]

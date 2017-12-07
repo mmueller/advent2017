@@ -1,29 +1,37 @@
+use advent::AdventSolver;
+use failure::Error;
+
 const TARGET: usize = 347991;
 
-pub fn solve() {
-    // Part 1: Simple spiral of 1, 2, 3...
-    let mut spiral1 = Spiral::new();
-    let mut pos: (isize, isize) = (0, 0);
-    for value in 1..TARGET+1 {
-        if value == TARGET {
-            break;
+#[derive(Default)]
+pub struct Solver;
+
+impl AdventSolver for Solver {
+    fn solve(&mut self) -> Result<(), Error> {
+        // Part 1: Simple spiral of 1, 2, 3...
+        let mut spiral1 = Spiral::new();
+        let mut pos: (isize, isize) = (0, 0);
+        for value in 1..TARGET+1 {
+            if value == TARGET {
+                break;
+            }
+            pos = spiral1.append(value);
         }
-        pos = spiral1.append(value);
-    }
-    println!("{} occurs at ({}, {}), dist: {}",
-             TARGET, pos.0, pos.1, pos.0.abs()+pos.1.abs());
+        println!("{} occurs at ({}, {}), dist: {}",
+                 TARGET, pos.0, pos.1, pos.0.abs()+pos.1.abs());
 
-    // Part 2: Spiral using sum_of_neighbors at each position.
-    let mut spiral2 = Spiral::new();
-    let mut value: usize = 1;
-    let mut pos: (isize, isize) = spiral2.append(1);
-    while value <= TARGET {
-        value = spiral2.sum_of_neighbors(pos);
-        pos = spiral2.append(value);
+        // Part 2: Spiral using sum_of_neighbors at each position.
+        let mut spiral2 = Spiral::new();
+        let mut value: usize = 1;
+        let mut pos: (isize, isize) = spiral2.append(1);
+        while value <= TARGET {
+            value = spiral2.sum_of_neighbors(pos);
+            pos = spiral2.append(value);
+        }
+        println!("First value greater than target: {}", value);
+        Ok(())
     }
-    println!("First value greater than target: {}", value);
 }
-
 
 struct Spiral {
     bounds: (isize, isize),
