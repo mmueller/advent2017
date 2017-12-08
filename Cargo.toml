@@ -7,3 +7,4 @@ authors = ["Mike Mueller <mike@subfocal.net>"]
 argparse = ""
 failure = ""
 itertools = ""
+regex = ""
