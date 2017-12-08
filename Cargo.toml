@@ -7,4 +7,5 @@ authors = ["Mike Mueller <mike@subfocal.net>"]
 argparse = ""
 failure = ""
 itertools = ""
+lazy_static = ""
 regex = ""

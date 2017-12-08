@@ -2,6 +2,8 @@ extern crate argparse;
 #[macro_use]
 extern crate failure;
 extern crate itertools;
+#[macro_use]
+extern crate lazy_static;
 extern crate regex;
 
 mod advent;
