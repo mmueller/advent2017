@@ -4,7 +4,7 @@ use std::path::Path;
 
 fn main() {
     let advent_path = Path::new("src/advent/");
-    let dest_path = Path::new("src/advent/_generated_advent_mod.rs");
+    let dest_path = Path::new("src/advent/_all_days.rs");
     let mut f = File::create(&dest_path).unwrap();
 
     let mut days: Vec<String> = Vec::new();
