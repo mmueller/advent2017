@@ -9,7 +9,7 @@ pub struct Solver;
 
 const KNOT_HASH_SIZE: usize = 256;
 
-const LAST_LENGTHS: [u8; 5] = [17, 31, 73, 47, 23];
+const SUFFIX: [u8; 5] = [17, 31, 73, 47, 23];
 
 impl AdventSolver for Solver {
     fn solve(&mut self) -> Result<(), Error> {
@@ -49,7 +49,7 @@ impl Solver {
                 hash.update(byte);
             }
             // For some reason we're asked to append these values, too.
-            for value in LAST_LENGTHS.iter() {
+            for value in SUFFIX.iter() {
                 hash.update(*value);
             }
         }
