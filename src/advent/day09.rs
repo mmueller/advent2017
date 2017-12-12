@@ -11,7 +11,7 @@ pub struct Solver {
 
 impl AdventSolver for Solver {
     fn solve(&mut self) -> Result<(), Error> {
-        let mut f = File::open("input/day9.txt")?;
+        let mut f = File::open("input/day09.txt")?;
         let mut contents = String::new();
         f.read_to_string(&mut contents)?;
         println!("Total score: {}",

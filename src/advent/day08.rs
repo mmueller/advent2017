@@ -16,7 +16,7 @@ pub struct Solver;
 
 impl AdventSolver for Solver {
     fn solve(&mut self) -> Result<(), Error> {
-        let file = BufReader::new(File::open("input/day8.txt")?);
+        let file = BufReader::new(File::open("input/day08.txt")?);
         let mut registers: HashMap<String, isize> = HashMap::new();
         let mut largest_value_ever: isize = 0;
         for line in file.lines() {

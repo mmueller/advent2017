@@ -8,7 +8,7 @@ pub struct Solver;
 
 impl AdventSolver for Solver {
     fn solve(&mut self) -> Result<(), Error> {
-        let file = BufReader::new(File::open("input/day2.txt")?);
+        let file = BufReader::new(File::open("input/day02.txt")?);
         let mut result : u32 = 0;
         let mut result2 : u32 = 0;
         for line in file.lines() {

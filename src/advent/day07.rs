@@ -38,7 +38,7 @@ impl Solver {
                        (?P<targets>[\w\s, ]+)
                      )?
                      $")?;
-        let file = BufReader::new(File::open("input/day7.txt")?);
+        let file = BufReader::new(File::open("input/day07.txt")?);
         for line in file.lines() {
             let line = line?;
             let caps = match re.captures(&line) {

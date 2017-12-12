@@ -11,7 +11,7 @@ pub struct Solver {
 
 impl AdventSolver for Solver {
     fn solve(&mut self) -> Result<(), Error> {
-        let file = BufReader::new(File::open("input/day5.txt")?);
+        let file = BufReader::new(File::open("input/day05.txt")?);
         self.instructions = file.lines()
                                 .map_results(|s| s.parse::<isize>().unwrap())
                                 .collect::<Result<_,_>>()?;

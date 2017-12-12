@@ -8,7 +8,7 @@ pub struct Solver;
 
 impl AdventSolver for Solver {
     fn solve(&mut self) -> Result<(), Error> {
-        let mut f = File::open("input/day1.txt")?;
+        let mut f = File::open("input/day01.txt")?;
         let mut contents = String::new();
         f.read_to_string(&mut contents)?;
         let captcha = contents.trim();

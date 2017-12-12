@@ -37,7 +37,7 @@ impl Solver {
 
 impl AdventSolver for Solver {
     fn solve(&mut self) -> Result<(), Error> {
-        let file = BufReader::new(File::open("input/day4.txt")?);
+        let file = BufReader::new(File::open("input/day04.txt")?);
         self.passphrases = file.lines().collect::<Result<_,_>>()?;
         let num_valid: usize         = self.count_valid(|s| s.to_string());
         let num_valid_anagram: usize = self.count_valid(|s| s.chars()
