@@ -14,15 +14,14 @@ impl AdventSolver for Solver {
         let mut f = File::open("input/day11.txt")?;
         let mut contents = String::new();
         f.read_to_string(&mut contents)?;
-        let directions: Vec<&str> = contents.trim()
-                                            .split(",")
-                                            .collect();
-        
+
         let origin = HexPoint::origin();
         let mut position = origin;
         let mut furthest_distance: usize = 0;
-        for dir in directions {
-            let dir = Direction::from_str(dir)?;
+
+        for dir in contents.trim()
+                           .split(",")
+                           .map(|s| s.parse::<Direction>().unwrap()) {
             position = position.neighbor(dir);
             furthest_distance = max(furthest_distance,
                                     position.manhattan_distance(&origin));
