@@ -54,7 +54,7 @@ impl Solver {
     fn build_groups(&mut self, pipes: &Vec<Pipe>) {
         for pipe in pipes {
             let mut p_group_index = self.find_or_create_group(pipe.program_id);
-            for target in pipe.targets.iter().cloned() {
+            for &target in &pipe.targets {
                 match self.find_group(target) {
                     Some(t_group_index) => {
                         // If target is already in another group, merge that
