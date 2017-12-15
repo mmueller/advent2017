@@ -81,23 +81,15 @@ impl Solver {
             regions.push(region_row);
         }
 
-        // Pass 2: Use smallest equivalent label across grid
+        // Pass 2: Use smallest equivalent label across grid (also track
+        // distinct regions for the final result)
+        let mut distinct_regions: BTreeSet<usize> = BTreeSet::new();
         for row in 0..128 {
             for col in 0..128 {
                 let value: usize = regions[row][col];
                 if value > 0 {
+                    distinct_regions.insert(equivalents.rep(value));
                     regions[row][col] = equivalents.rep(value);
-                }
-            }
-        }
-
-        // Pass 3: Count the number of distinct regions
-        let mut distinct_regions: BTreeSet<usize> = BTreeSet::new();
-        for row in 0..128 {
-            for col in 0..128 {
-                let value = regions[row][col];
-                if value > 0 {
-                    distinct_regions.insert(value);
                 }
             }
         }
