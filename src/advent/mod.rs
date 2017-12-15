@@ -1,5 +1,8 @@
 use failure::Error;
 
+mod knot;
+mod union_find;
+
 trait AdventSolver {
     fn solve(&mut self) -> Result<(), Error>;
 }
