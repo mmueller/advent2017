@@ -42,8 +42,8 @@ pub fn solve(day: usize) -> Result<(), Error> {
         write!(f, "         {} => Box::new({}::Solver::default()),\n",
                day_num, module).unwrap();
     }
-    f.write(br###"
-        _ => { return Err(format_err!("Invalid day specified: {}", day)); }
+    f.write(
+br###"         _ => { return Err(format_err!("Invalid day number: {}", day)); }
     };
     solver.solve()
 }
