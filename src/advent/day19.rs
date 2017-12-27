@@ -1,4 +1,5 @@
 use advent::AdventSolver;
+use util::grid::Dir;
 use failure::Error;
 use std::fs::File;
 use std::io::{BufRead,BufReader};
@@ -8,14 +9,6 @@ pub struct Solver {
     circuit: Vec<Vec<char>>,
     width: usize,
     height: usize
-}
-
-#[derive(Clone,Copy,Debug)]
-enum Dir {
-    Up,
-    Right,
-    Down,
-    Left
 }
 
 #[derive(Clone,Copy,Debug)]
@@ -61,24 +54,6 @@ impl Solver {
         self.circuit[pos.row][pos.col]
     }
 
-    fn turn_right(&self, dir: Dir) -> Dir {
-        match dir {
-            Dir::Up    => Dir::Right,
-            Dir::Right => Dir::Down,
-            Dir::Down  => Dir::Left,
-            Dir::Left  => Dir::Up,
-        }
-    }
-
-    fn turn_left(&self, dir: Dir) -> Dir {
-        match dir {
-            Dir::Up    => Dir::Left,
-            Dir::Right => Dir::Up,
-            Dir::Down  => Dir::Right,
-            Dir::Left  => Dir::Down,
-        }
-    }
-
     // Naive: what is the postion adjacent to `pos` in direction `dir`.
     // Does not consider turning. Returns Some(pos) if neighbor is inside
     // the circuit bounds, or None if it would go out of bounds.
@@ -106,13 +81,13 @@ impl Solver {
     fn next_pos(&self, pos: Pos, dir: Dir) -> Option<(Pos, Dir)> {
         let mut dir = dir;
         if self.value_at(pos) == '+' {
-            let right = self.turn_right(dir);
+            let right = dir.turn_right();
             if let Some(n) = self.neighbor(pos, right) {
                 if self.value_at(n) != ' ' {
                     dir = right
                 }
             }
-            let left = self.turn_left(dir);
+            let left = dir.turn_left();
             if let Some(n) = self.neighbor(pos, left) {
                 if self.value_at(n) != ' ' {
                     dir = left;

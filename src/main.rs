@@ -8,6 +8,8 @@ extern crate lazy_static;
 extern crate nom;
 extern crate regex;
 
+#[macro_use]
+mod util;
 mod advent;
 
 use argparse::{ArgumentParser, StoreOption};
